@@ -1,6 +1,7 @@
 var _ = require('lodash');
 var ejs = require('ejs');
 var path = require('path');
+var Keystone = require('keystone');
 
 var templatePath = path.resolve(__dirname, '../templates/index.html');
 
@@ -23,7 +24,26 @@ module.exports = function IndexRoute (req, res) {
 		// but if it's undefined, default it to "/"
 		backUrl = '/';
 	}
+  
+  // filter lists
+  var filteredLists = Object.keys(lists)
+		.filter(key => req.user[key])
+		.reduce((obj, key) => {
+			obj[key] = lists[key];
+			return obj;
+		}, {});
 
+  // filter nav
+	var nav = Keystone.get('nav');
+	var filteredNav = {};
+	Object.keys(nav).forEach(key => {
+    let section = nav[key].filter(list => req.user[list]);
+		if (section.length > 0) {
+			filteredNav[key] = section;
+		}
+	});
+  var filteredNav = keystone.initNav(filteredNav);
+  
 	var keystoneData = {
 		adminPath: '/' + keystone.get('admin path'),
 		appversion: keystone.get('appversion'),
@@ -31,8 +51,8 @@ module.exports = function IndexRoute (req, res) {
 		brand: keystone.get('brand'),
 		csrf: { header: {} },
 		devMode: !!process.env.KEYSTONE_DEV,
-		lists: lists,
-		nav: keystone.nav,
+		lists: filteredLists,
+		nav: filteredNav,
 		orphanedLists: orphanedLists,
 		signoutUrl: keystone.get('signout url'),
 		user: {
