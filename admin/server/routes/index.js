@@ -25,24 +25,16 @@ module.exports = function IndexRoute (req, res) {
 		backUrl = '/';
 	}
   
-  // filter lists
-  var filteredLists = Object.keys(lists)
-		.filter(key => req.user[key])
-		.reduce((obj, key) => {
-			obj[key] = lists[key];
-			return obj;
-		}, {});
-
   // filter nav
-	var nav = Keystone.get('nav');
+	var defaultNav = Keystone.get('nav');
 	var filteredNav = {};
-	Object.keys(nav).forEach(key => {
-    let section = nav[key].filter(list => req.user[list]);
+	Object.keys(defaultNav).forEach(key => {
+    let section = defaultNav[key].filter(list => req.user[list]);
 		if (section.length > 0) {
 			filteredNav[key] = section;
 		}
 	});
-  var filteredNav = keystone.initNav(filteredNav);
+  var nav = keystone.initNav(filteredNav);
   
 	var keystoneData = {
 		adminPath: '/' + keystone.get('admin path'),
@@ -51,8 +43,8 @@ module.exports = function IndexRoute (req, res) {
 		brand: keystone.get('brand'),
 		csrf: { header: {} },
 		devMode: !!process.env.KEYSTONE_DEV,
-		lists: filteredLists,
-		nav: filteredNav,
+		lists: lists,
+		nav: nav,
 		orphanedLists: orphanedLists,
 		signoutUrl: keystone.get('signout url'),
 		user: {
