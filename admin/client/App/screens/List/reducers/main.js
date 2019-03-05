@@ -49,7 +49,6 @@ const initialState = {
 
 // Rekey the lists in the state with their paths for easier matching with the
 // URL parameters
-console.log('[list reducer]')
 const initialLists = Keystone.lists;
 for (const name in initialLists) {
 	if ({}.hasOwnProperty.call(initialLists, name)) {
