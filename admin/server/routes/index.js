@@ -24,18 +24,18 @@ module.exports = function IndexRoute (req, res) {
 		// but if it's undefined, default it to "/"
 		backUrl = '/';
 	}
-  
+
   // filter nav
 	var defaultNav = Keystone.get('nav');
 	var filteredNav = {};
 	Object.keys(defaultNav).forEach(key => {
-    let section = defaultNav[key].filter(list => req.user[list]);
+    let section = defaultNav[key].filter(list => req.user[list.toLowerCase()]);
 		if (section.length > 0) {
 			filteredNav[key] = section;
 		}
 	});
   var nav = keystone.initNav(filteredNav);
-  
+
 	var keystoneData = {
 		adminPath: '/' + keystone.get('admin path'),
 		appversion: keystone.get('appversion'),
