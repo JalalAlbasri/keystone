@@ -482,7 +482,14 @@ var EditForm = React.createClass({
 						<span />
 					</Grid.Col>
 				</Grid.Row>
-				<EmailForm email={this.state.values.email} />
+				{this.props.list.key === "Applications" ? (
+					<EmailForm
+						email={this.state.values.email}
+						name={this.state.values.name}
+						job={this.state.values.job || "General Position"}
+						reference={this.state.values.reference}
+					/>
+				) : null}
 				{this.renderFooterBar()}
 				<ConfirmationDialog
 					confirmationLabel="Reset"
