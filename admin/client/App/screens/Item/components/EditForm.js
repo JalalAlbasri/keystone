@@ -26,7 +26,7 @@ import { deleteItem } from "../actions";
 
 import { upcase } from "../../../../utils/string";
 
-import EmailForm from "../../../../../../../../src/react/components/careers/EmailForm";
+// import EmailForm from "../../../../../../../../src/react/components/careers/EmailForm";
 
 function getNameFromData(data) {
 	if (typeof data === "object") {
