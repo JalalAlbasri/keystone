@@ -164,7 +164,7 @@ const disabledButtonStyle = {
 
 const disabledInputStyle = {
 	appearance: 'none',
-	background: '#a6a6a6',
+	backgroundColor: '#f9f9f9',
 	backgroundImage: 'none',
 	borderColor: '#ccc',
 	borderRadius: '0.3rem',
