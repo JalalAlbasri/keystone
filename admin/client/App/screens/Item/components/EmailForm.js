@@ -164,6 +164,10 @@ const disabledButtonStyle = {
 	WebkitUserSelect: 'none',
 };
 
+const disabledInputStyle = {};
+
+const inputStyle = {};
+
 class EmailForm extends Component {
 	constructor (props) {
 		super(props);
@@ -285,6 +289,15 @@ class EmailForm extends Component {
 									</option>
 								))}
 							</Field>
+							<br />
+							<Field
+								name="subject"
+								component="input"
+								label="Subject"
+								onChange={this.onChangeSubject}
+								disabled={isSubmitting}
+								style={isSubmitting ? disabledInputStyle : inputStyle}
+							/>
 							<br />
 							<Field
 								name="message"
