@@ -164,10 +164,6 @@ const disabledButtonStyle = {
 	WebkitUserSelect: 'none',
 };
 
-const disabledInputStyle = {};
-
-const inputStyle = {};
-
 class EmailForm extends Component {
 	constructor (props) {
 		super(props);
@@ -199,28 +195,20 @@ class EmailForm extends Component {
 
 	onChangeTemplate (e) {
 		let value = e.target.value;
-		let subject = '';
 		let message = '';
 
 		if (value !== 'Custom') {
 			let template = this.state.templates.find(o => o._id === value);
-			subject = template.subject;
 			message = template.message;
 		}
 
 		this.props.setFieldValue('template', value);
-		this.props.setFieldValue('subject', subject);
 		this.props.setFieldValue('message', message);
 	}
 
 	onChangeMessage (e) {
 		this.props.setFieldValue('template', 'Custom');
 		this.props.setFieldValue('message', e.target.value);
-	}
-
-	onChangeSubject (e) {
-		this.props.setFieldValue('template', 'Custom');
-		this.props.setFieldValue('subject', e.target.value);
 	}
 
 	onTryAgain () {
@@ -299,15 +287,6 @@ class EmailForm extends Component {
 							</Field>
 							<br />
 							<Field
-								name="subject"
-								component="input"
-								label="Subject"
-								onChange={this.onChangeSubject}
-								disabled={isSubmitting}
-								style={isSubmitting ? disabledInputStyle : inputStyle}
-							/>
-							<br />
-							<Field
 								name="message"
 								placeholder="Message"
 								component="textarea"
@@ -346,7 +325,6 @@ const FormikEmailForm = withFormik({
 	mapPropsToValues: props => {
 		const values = Object.assign({}, props.values);
 		values.tempalte = '';
-		values.subject = '';
 		values.message = '';
 		return values;
 	},
@@ -360,7 +338,6 @@ const FormikEmailForm = withFormik({
 	validationSchema: () => {
 		return Yup.object().shape({
 			template: Yup.string(),
-			subject: Yup.string().required('Please enter a subject'),
 			message: Yup.string().required('Please enter a message'),
 		});
 	},
@@ -372,7 +349,6 @@ const FormikEmailForm = withFormik({
 		data.set('name', actions.props.name);
 		data.set('job', actions.props.job);
 		data.set('reference', actions.props.reference);
-		data.set('subject', values.subject);
 		data.set('message', values.message);
 
 		actions.setSubmitting(true);

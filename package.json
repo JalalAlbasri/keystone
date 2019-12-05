@@ -1,11 +1,70 @@
 {
-  "name": "keystone",
-  "version": "4.0.2",
-  "description": "Web Application Framework and Admin GUI / Content Management System built on Express.js and Mongoose",
-  "main": "index.js",
-  "repository": {
+  "_args": [
+    [
+      "github:jalalalbasri/keystone#master",
+      "/codebuild/output/src876297562/src"
+    ]
+  ],
+  "_from": "github:jalalalbasri/keystone#master",
+  "_id": "keystone@github:jalalalbasri/keystone#491ed555d190a6a64155e41ab5c99865aea28b92",
+  "_inBundle": false,
+  "_integrity": "",
+  "_location": "/keystone",
+  "_phantomChildren": {
+    "@babel/runtime": "7.5.5",
+    "create-react-class": "15.6.3",
+    "fbjs": "0.8.17",
+    "hoist-non-react-statics": "3.3.0",
+    "invariant": "2.2.4",
+    "lodash": "4.17.14",
+    "lodash-es": "4.17.14",
+    "loose-envify": "1.4.0",
+    "object-assign": "4.1.1",
+    "prop-types": "15.7.2",
+    "react-is": "16.8.6",
+    "react-lifecycles-compat": "3.0.4",
+    "symbol-observable": "1.2.0",
+    "warning": "3.0.0"
+  },
+  "_requested": {
     "type": "git",
-    "url": "https://github.com/keystonejs/keystone.git"
+    "raw": "github:jalalalbasri/keystone#master",
+    "rawSpec": "github:jalalalbasri/keystone#master",
+    "saveSpec": "github:jalalalbasri/keystone#master",
+    "fetchSpec": null,
+    "gitCommittish": "master"
+  },
+  "_requiredBy": [
+    "/"
+  ],
+  "_resolved": "github:jalalalbasri/keystone#491ed555d190a6a64155e41ab5c99865aea28b92",
+  "_spec": "github:jalalalbasri/keystone#master",
+  "_where": "/codebuild/output/src876297562/src",
+  "author": {
+    "name": "Jed Watson"
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim",
+      [
+        "babelify",
+        {
+          "presets": [
+            "babel-preset-env",
+            "babel-preset-react"
+          ]
+        }
+      ]
+    ]
+  },
+  "browserify-shim": {
+    "tinymce": "global:tinymce",
+    "jquery": "global:$",
+    "codemirror": "global:CodeMirror",
+    "underscore": "global:_"
+  },
+  "bugs": {
+    "url": "https://github.com/keystonejs/keystone/issues"
   },
   "dependencies": {
     "async": "^2.5.0",
@@ -15,7 +74,6 @@
     "babel-polyfill": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
     "babel-preset-stage-2": "^6.24.1",
-    "babelify": "^8.0.0",
     "babyparse": "^0.4.6",
     "bcrypt-nodejs": "^0.0.3",
     "blacklist": "^1.1.4",
@@ -43,7 +101,7 @@
     "express-request-language": "^1.1.12",
     "express-session": "^1.15.6",
     "expression-match": "^0.0.17",
-    "formik": "^1.5.8",
+    "formik": "^2.0.6",
     "fs-extra": "^1.0.0",
     "glamor": "^2.20.25",
     "grappling-hook": "^3.0.0",
@@ -100,10 +158,12 @@
     "xhr": "^2.4.0",
     "yup": "^0.27.0"
   },
+  "description": "Web Application Framework and Admin GUI / Content Management System built on Express.js and Mongoose",
   "devDependencies": {
     "babel-core": "^6.26.3",
     "babel-preset-env": "^1.7.0",
     "babel-preset-react": "^6.24.1",
+    "babelify": "^8.0.0",
     "browserify-middleware": "^7.1.0",
     "codeclimate-test-reporter": "^0.5.0",
     "connect-mongo": "^1.3.2",
@@ -132,29 +192,8 @@
     "updtr": "^1.0.0",
     "watch": "^1.0.2"
   },
-  "browserify": {
-    "transform": [
-      "browserify-shim",
-      [
-        "babelify",
-        {
-          "presets": [
-            "babel-preset-env",
-            "babel-preset-react"
-          ]
-        }
-      ]
-    ]
-  },
-  "browserify-shim": {
-    "tinymce": "global:tinymce",
-    "jquery": "global:$",
-    "codemirror": "global:CodeMirror",
-    "underscore": "global:_"
-  },
-  "author": "Jed Watson",
+  "gitHead": "ef3fd612285315ea8e12f68da4c8d6031e2c7fe7",
   "homepage": "http://keystonejs.com/",
-  "license": "MIT",
   "keywords": [
     "express",
     "web",
@@ -168,31 +207,34 @@
     "website",
     "forms"
   ],
-  "readmeFilename": "README.md",
-  "gitHead": "ef3fd612285315ea8e12f68da4c8d6031e2c7fe7",
-  "bugs": {
-    "url": "https://github.com/keystonejs/keystone/issues"
+  "license": "MIT",
+  "main": "index.js",
+  "name": "keystone",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/keystonejs/keystone.git"
   },
   "scripts": {
     "build": "cross-env NODE_ENV=production node build.js | uglifyjs -mc warnings=false,screw_ie8=true -b beautify=false,semicolons=true > ./admin/public/js/packages.js",
     "build-dev": "node build.js > ./admin/public/js/packages.js",
+    "clean": "rimraf ./coverage",
+    "current": "updtr",
+    "fields-explorer": "node ./fields/explorer/server.js",
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix",
+    "posttest-cov": "if [ -n \"$CODECLIMATE_REPO_TOKEN\" ]; then codeclimate-test-reporter < coverage/lcov.info; fi",
     "pretest": "npm run lint && node test/pretest.js",
+    "pretest-cov": "npm run clean && npm run lint",
     "test": "mocha && mocha --opts test/mocha-admin.opts",
-    "test-all": "npm test",
-    "test-unit": "node test/pretest.js && mocha",
     "test-admin": "mocha --opts test/mocha-admin.opts",
+    "test-all": "npm test",
+    "test-cov": "istanbul cover ./node_modules/mocha/bin/_mocha",
     "test-e2e": "node test/e2e/server.js --env default",
     "test-e2e-bg": "cross-env KNE_SELENIUM_START_PROCESS=false && node test/e2e/server.js --env default",
     "test-e2e-saucelabs": "if [ -n \"$SAUCE_ACCESS_KEY\" ]; then node test/e2e/server.js --env saucelabs-travis; fi",
     "test-e2e-saucelabs-group": "if [ -n \"$SAUCE_ACCESS_KEY\" ]; then node test/e2e/server.js --env saucelabs-travis --group ./test/e2e/adminUI/tests/$GROUP; fi",
-    "lint": "eslint .",
-    "lint-fix": "eslint . --fix",
-    "watch": "watch 'clear && npm run lint' lib admin server test",
-    "pretest-cov": "npm run clean && npm run lint",
-    "current": "updtr",
-    "test-cov": "istanbul cover ./node_modules/mocha/bin/_mocha",
-    "posttest-cov": "if [ -n \"$CODECLIMATE_REPO_TOKEN\" ]; then codeclimate-test-reporter < coverage/lcov.info; fi",
-    "clean": "rimraf ./coverage",
-    "fields-explorer": "node ./fields/explorer/server.js"
-  }
+    "test-unit": "node test/pretest.js && mocha",
+    "watch": "watch 'clear && npm run lint' lib admin server test"
+  },
+  "version": "4.0.2"
 }
