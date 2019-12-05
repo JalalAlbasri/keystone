@@ -199,14 +199,17 @@ class EmailForm extends Component {
 
 	onChangeTemplate (e) {
 		let value = e.target.value;
+		let subject = '';
 		let message = '';
 
 		if (value !== 'Custom') {
 			let template = this.state.templates.find(o => o._id === value);
+			subject = template.subject;
 			message = template.message;
 		}
 
 		this.props.setFieldValue('template', value);
+		this.props.setFieldValue('subject', subject);
 		this.props.setFieldValue('message', message);
 	}
 
