@@ -26,7 +26,7 @@ import { deleteItem } from '../actions';
 
 import { upcase } from '../../../../utils/string';
 
-import EmailForm from './EmailForm';
+// import EmailForm from './EmailForm';
 
 function getNameFromData (data) {
 	if (typeof data === 'object') {
