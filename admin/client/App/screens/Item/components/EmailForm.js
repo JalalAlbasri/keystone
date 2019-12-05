@@ -162,6 +162,52 @@ const disabledButtonStyle = {
 	WebkitUserSelect: 'none',
 };
 
+const disabledInputStyle = {
+	appearance: 'none',
+	background: '#a6a6a6',
+	backgroundImage: 'none',
+	borderColor: '#ccc',
+	borderRadius: '0.3rem',
+	borderStyle: 'solid',
+	borderWidth: '1px',
+	boxShadow: 'inset 0 1px 1px rgba(0, 0, 0, 0.075)',
+	color: 'inherit',
+	display: 'block',
+	height: '2.4em',
+	lineHeight: '2.3em',
+	padding: '0 .75em',
+	transition: 'border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s',
+	width: '100%',
+	WebkitAppearance: 'none',
+	MozAppearance: 'none',
+	WebkitTransition:
+		'border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s',
+	MozTransition: 'border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s',
+};
+
+const inputStyle = {
+	appearance: 'none',
+	backgroundColor: 'white',
+	backgroundImage: 'none',
+	borderColor: '#ccc',
+	borderRadius: '0.3rem',
+	borderStyle: 'solid',
+	borderWidth: '1px',
+	boxShadow: 'inset 0 1px 1px rgba(0, 0, 0, 0.075)',
+	color: 'inherit',
+	display: 'block',
+	height: '2.4em',
+	lineHeight: '2.3em',
+	padding: '0 .75em',
+	transition: 'border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s',
+	width: '100%',
+	WebkitAppearance: 'none',
+	MozAppearance: 'none',
+	WebkitTransition:
+		'border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s',
+	MozTransition: 'border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s',
+};
+
 class EmailForm extends Component {
 	constructor (props) {
 		super(props);
@@ -193,15 +239,23 @@ class EmailForm extends Component {
 
 	onChangeTemplate (e) {
 		let value = e.target.value;
+		let subject = '';
 		let message = '';
 
 		if (value !== 'Custom') {
 			let template = this.state.templates.find(o => o._id === value);
+			subject = template.subject;
 			message = template.message;
 		}
 
 		this.props.setFieldValue('template', value);
+		this.props.setFieldValue('subject', subject);
 		this.props.setFieldValue('message', message);
+	}
+
+	onChangeSubject (e) {
+		this.props.setFieldValue('template', 'Custom');
+		this.props.setFieldValue('subject', e.target.value);
 	}
 
 	onChangeMessage (e) {
@@ -285,6 +339,16 @@ class EmailForm extends Component {
 							</Field>
 							<br />
 							<Field
+								name="subject"
+								component="input"
+								label="Subject"
+								placeholder="Subject"
+								onChange={this.onChangeSubject}
+								disabled={isSubmitting}
+								style={isSubmitting ? disabledInputStyle : inputStyle}
+							/>
+							<br />
+							<Field
 								name="message"
 								placeholder="Message"
 								component="textarea"
@@ -323,6 +387,7 @@ const FormikEmailForm = withFormik({
 	mapPropsToValues: props => {
 		const values = Object.assign({}, props.values);
 		values.tempalte = '';
+		values.subject = '';
 		values.message = '';
 		return values;
 	},
@@ -336,6 +401,7 @@ const FormikEmailForm = withFormik({
 	validationSchema: () => {
 		return Yup.object().shape({
 			template: Yup.string(),
+			subject: Yup.string().required('Please enter a subject'),
 			message: Yup.string().required('Please enter a message'),
 		});
 	},
@@ -347,6 +413,7 @@ const FormikEmailForm = withFormik({
 		data.set('name', actions.props.name);
 		data.set('job', actions.props.job);
 		data.set('reference', actions.props.reference);
+		data.set('subject', values.subject);
 		data.set('message', values.message);
 
 		actions.setSubmitting(true);
