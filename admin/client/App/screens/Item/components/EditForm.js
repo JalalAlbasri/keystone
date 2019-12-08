@@ -476,7 +476,6 @@ var EditForm = React.createClass({
 							{this.renderNameField()}
 							{this.renderKeyOrId()}
 							{this.renderFormElements()}
-							{this.renderTrackingMeta()}
 						</Form>
 					</Grid.Col>
 					<Grid.Col large="one-quarter">
@@ -493,6 +492,16 @@ var EditForm = React.createClass({
 						reference={this.state.values.reference}
 					/>
 				) : null}
+				<Grid.Row>
+					<Grid.Col large="three-quarters">
+						<Form layout="horizontal" component="div">
+							{this.renderTrackingMeta()}
+						</Form>
+					</Grid.Col>
+					<Grid.Col large="one-quarter">
+						<span />
+					</Grid.Col>
+				</Grid.Row>
 				{this.renderFooterBar()}
 				<ConfirmationDialog
 					confirmationLabel="Reset"
