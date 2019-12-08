@@ -217,6 +217,7 @@ class EmailForm extends Component {
 			errorLoading: false,
 		};
 		this.onChangeTemplate = this.onChangeTemplate.bind(this);
+		this.onChangeSubject = this.onChangeSubject.bind(this);
 		this.onChangeMessage = this.onChangeMessage.bind(this);
 		this.onTryAgain = this.onTryAgain.bind(this);
 	}
