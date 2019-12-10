@@ -419,7 +419,7 @@ const FormikEmailForm = withFormik({
 		data.set('reference', actions.props.reference);
 		data.set('subject', values.subject);
 		data.set('message', values.message);
-		data.set('user', Keystone.user.name);
+		data.set('sent', Keystone.user.name);
 
 		actions.setSubmitting(true);
 		axios
