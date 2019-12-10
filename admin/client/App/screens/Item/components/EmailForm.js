@@ -348,6 +348,9 @@ class EmailForm extends Component {
 								disabled={isSubmitting}
 								style={isSubmitting ? disabledInputStyle : inputStyle}
 							/>
+							{this.props.touched.subject && this.props.errors.subject && (
+								<div style={{ color: 'red' }}>{this.props.errors.subject}</div>
+							)}
 							<br />
 							<Field
 								name="message"
